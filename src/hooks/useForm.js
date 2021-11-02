@@ -16,7 +16,7 @@ export const useForm = (initialValues, initialErrors, schema) => {
     useEffect(() => {
         schema.isValid(formValues)
             .then(valid => setIsDisabled(!valid))
-    }, [formValues])
+    }, [formValues, schema])
 
     const change = e => {
         const { name, value, checked, type } = e.target
