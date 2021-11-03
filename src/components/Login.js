@@ -1,22 +1,30 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import { connect } from 'react-redux'
 
+import { loginAdmin, getUsername } from '../actions'
 import { useForm } from '../hooks/useForm'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
 import loginSchema from '../services/loginSchema'
 
-const initValues = {
-    username: '',
-    password: ''
-
+const init = {
+    initValues: {
+        username: '',
+        password: ''
+    },
+    initError: {
+        username: '',
+        password: ''
+    }
 }
-const initError = {
-    username: '',
-    password: ''
-}
 
-export default function Login() {
-    const [loginValues, errors, change, disabled] = useForm(initValues, initError, loginSchema)
+function Login(props) {
+    const [
+        loginValues,
+        errors,
+        change,
+        disabled
+    ] = useForm(init.initValues, init.initError, loginSchema)
     const [err, setErr] = useState('')
     const { push } = useHistory()
 
@@ -29,6 +37,11 @@ export default function Login() {
                 localStorage.setItem('token', res.data.token)
                 localStorage.setItem('role', res.data.role_name)
                 localStorage.setItem('username', res.data.username)
+
+                if (localStorage.getItem('role') === 'admin') {
+                    props.loginAdmin(true)
+                }
+                props.getUsername(localStorage.getItem('username'))
                 push('/')
             })
             .catch(err => {
@@ -79,3 +92,5 @@ export default function Login() {
         </div>
     )
 }
+
+export default connect(null, { loginAdmin, getUsername })(Login)

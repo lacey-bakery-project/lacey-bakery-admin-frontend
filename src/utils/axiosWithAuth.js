@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { base_URL } from '../api'
 
 export const axiosWithAuth = () => {
     const token = localStorage.getItem('token')
@@ -7,6 +8,6 @@ export const axiosWithAuth = () => {
         headers: {
             Authorization: token
         },
-        baseURL: 'https://lacey-bakery-backend.herokuapp.com'
+        baseURL: `${base_URL}`
     })
 }

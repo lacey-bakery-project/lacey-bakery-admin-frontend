@@ -1,20 +1,24 @@
-import React from 'react'
-// import { connect } from 'react-redux'
+import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-// import { loginStatus } from '../actions'
+import { connect } from 'react-redux'
+import { loginAdmin, getUsername } from '../actions'
 
 function Logout(props) {
     const { push } = useHistory()
 
-    localStorage.removeItem('token')
-    localStorage.removeItem('username')
-    localStorage.removeItem('role')
-
-    push('/')
+    useEffect(() => {
+        localStorage.removeItem('token')
+        localStorage.removeItem('username')
+        localStorage.removeItem('role')
+        props.loginAdmin(false)
+        props.getUsername('')
+        push('/')
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <div></div>
     )
 }
 
-export default Logout
+export default connect(null, { loginAdmin, getUsername })(Logout)
