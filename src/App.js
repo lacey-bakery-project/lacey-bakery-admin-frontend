@@ -22,6 +22,7 @@ function App(props) {
     if (username) {
       props.getUsername(username)
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

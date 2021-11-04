@@ -70,8 +70,8 @@ function Products(props) {
         }
     ]
 
-    console.log(sort)
     console.log(filteredProducts)
+    console.log("products renders")
 
     const mapFunc = array => {
         return array.map(product => {
@@ -106,8 +106,8 @@ function Products(props) {
                         ? <div>fetching products list...</div>
                         : <div>
                             {filteredProducts.length === 0
-                                ? mapFunc(filteredProducts)
-                                : mapFunc(props.products)
+                                ? mapFunc(props.products)
+                                : mapFunc(filteredProducts)
                             }
                         </div>
                 }
